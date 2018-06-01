@@ -84,6 +84,13 @@ describe('FileStorage', () => {
         }).catch(done)
       })
 
+      it('Get file from storage', (done) => {
+        FileStorage.use('avatar').get('aaa.txt').then((content) => {
+          assert.equal('content', content)
+          done()
+        }).catch(done)
+      })
+
     })
 
   })
