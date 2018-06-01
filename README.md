@@ -1,3 +1,5 @@
+![badge](https://travis-ci.org/vt-bogachev/ss-node-filestorage.svg?branch=master)
+
 FileStorage
 =========================
 
