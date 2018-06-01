@@ -22,5 +22,11 @@
   "bugs": {
     "url": "https://github.com/vt-bogachev/ss-node-filestorage/issues"
   },
-  "homepage": "https://github.com/vt-bogachev/ss-node-filestorage#readme.md"
+  "homepage": "https://github.com/vt-bogachev/ss-node-filestorage#readme.md",
+  "devDependencies": {
+    "@types/mocha": "^5.2.0",
+    "chai": "^4.1.2",
+    "mocha": "^5.2.0",
+    "nyc": "^12.0.1"
+  }
 }
