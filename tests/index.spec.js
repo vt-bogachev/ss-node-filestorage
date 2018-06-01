@@ -72,6 +72,18 @@ describe('FileStorage', () => {
         done()
       })
 
+      it('Check available to use storage', (done) => {
+        assert.instanceOf(FileStorage.use('avatar'), FileStorage)
+        done()
+      })
+
+      it('Put file to storage', (done) => {
+        FileStorage.use('avatar').put('aaa.txt', 'content').then((result) => {
+          assert.isTrue(result)
+          done()
+        }).catch(done)
+      })
+
     })
 
   })
