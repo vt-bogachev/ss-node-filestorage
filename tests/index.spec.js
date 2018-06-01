@@ -84,7 +84,17 @@ describe('FileStorage', () => {
         }).catch(done)
       })
 
-      it('Get file from storage', (done) => {
+      it('Get non exists file from storage', (done) => {
+        FileStorage.use('avatar').get('bbb.txt').then(() => {
+          done(new Error('Test failed.'))
+        }).catch((err) => {
+          assert.typeOf(err, 'Error')
+          assert.equal(err.message, 'FILE_NOT_FOUND')
+          done()
+        })
+      })
+
+      it('Get exists file from storage', (done) => {
         FileStorage.use('avatar').get('aaa.txt').then((content) => {
           assert.equal('content', content)
           done()
