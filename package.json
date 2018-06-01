@@ -1,0 +1,26 @@
+{
+  "name": "ss-node-filestorage",
+  "version": "0.0.1",
+  "description": "Filestorage for Node.",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vt-bogachev/ss-node-filestorage.git"
+  },
+  "keywords": [
+    "node",
+    "files",
+    "storage",
+    "filestorage",
+    "express"
+  ],
+  "author": "Stanislav Sahnyuk",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/vt-bogachev/ss-node-filestorage/issues"
+  },
+  "homepage": "https://github.com/vt-bogachev/ss-node-filestorage#readme.md"
+}
