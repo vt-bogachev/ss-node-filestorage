@@ -47,3 +47,7 @@ Promise.all([
   console.log({file1Content, file2Content})
 })
 ```
+
+Tools
+---------------------------
+[TravisCI](https://travis-ci.org/), [Coveralls](https://coveralls.io)
