@@ -4,7 +4,8 @@
   "description": "Filestorage for Node.",
   "main": "index.js",
   "scripts": {
-    "test": "nyc mocha --exclude=tests/index.spec.js ./tests/index.spec.js"
+    "test": "nyc mocha ./tests/index.spec.js",
+    "coveralls": "nyc --reporter=lcov --reporter=text-lcov npm test --coverage"
   },
   "repository": {
     "type": "git",
@@ -28,5 +29,11 @@
     "chai": "^4.1.2",
     "mocha": "^5.2.0",
     "nyc": "^12.0.1"
+  },
+  "nyc": {
+    "exclude": [
+      "**/*.spec.js",
+      "build"
+    ]
   }
 }
