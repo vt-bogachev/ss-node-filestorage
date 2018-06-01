@@ -4,7 +4,7 @@
   "description": "Filestorage for Node.",
   "main": "index.js",
   "scripts": {
-    "test": "test"
+    "test": "nyc mocha --exclude=tests/index.spec.js ./tests/index.spec.js"
   },
   "repository": {
     "type": "git",
