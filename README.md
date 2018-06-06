@@ -23,7 +23,9 @@ const FileStorage = require('ss-node-filestorage')
 // Init storage
 FileStorage.init('avatar', new FileStorage.LocalStorage({
   path: `${__dirname}/_storage/public`
-}))
+}),{
+  url:'http://localhost:8000'
+})
 
 // Save file
 // File will be save as __dirname/_storage/public/filename.text
@@ -34,6 +36,11 @@ FileStorage.use('avatar').
 FileStorage.use('avatar').
   get('filename.text','content file').
   then((content)=>console.log(content))
+  
+// Get file url
+FileStorage.use('avatar').
+  getUrl('filename.text').
+  then((fileUrl)=>console.log(fileUrl))
 
 // ================================================
 // OR
@@ -42,7 +49,7 @@ FileStorage.use('avatar').
 const avatarStorage = FileStorage.use('avatar');
 Promise.all([
   avatarStorage.get('file1'),  
-  avatarStorage.get('file2')  
+  avatarStorage.get('file2')
 ]).then(([file1Content, file2Content])=>{
   console.log({file1Content, file2Content})
 })

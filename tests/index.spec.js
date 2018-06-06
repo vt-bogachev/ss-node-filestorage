@@ -36,7 +36,7 @@ describe('FileStorage', () => {
       it('Check define storage without path options.', (done) => {
         try {
           FileStorage.init('avatar', new FileStorage.LocalStorage({
-            somekey: '../../'
+            somekey: '../../',
           }))
           done(new Error('Test failed.'))
         } catch (err) {
@@ -49,7 +49,7 @@ describe('FileStorage', () => {
       it('Check define storage with invalid path options.', (done) => {
         try {
           FileStorage.init('avatar', new FileStorage.LocalStorage({
-            path: '../../'
+            path: '../../',
           }))
           done(new Error('Test failed.'))
         } catch (err) {
@@ -59,10 +59,12 @@ describe('FileStorage', () => {
         }
       })
 
-      it('Check define storage.', (done) => {
+      it('Check define valid storage.', (done) => {
         FileStorage.init('avatar', new FileStorage.LocalStorage({
-          path: `${__dirname}/_storage/public`
-        }))
+          path: `${__dirname}/_storage/public`,
+        }), {
+          url: 'http://localhost:8000',
+        })
         assert.isTrue(FileStorage.exists('avatar'))
         done()
       })
@@ -97,6 +99,13 @@ describe('FileStorage', () => {
       it('Get exists file from storage', (done) => {
         FileStorage.use('avatar').get('aaa.txt').then((content) => {
           assert.equal('content', content)
+          done()
+        }).catch(done)
+      })
+
+      it('Get url for a file', (done) => {
+        FileStorage.use('avatar').getUrl('aaa.txt').then((url) => {
+          assert.equal(url, 'http://localhost:8000/aaa.txt')
           done()
         }).catch(done)
       })
