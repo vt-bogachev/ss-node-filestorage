@@ -1,3 +1,6 @@
+![badge](https://travis-ci.org/vt-bogachev/ss-node-filestorage.svg?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/vt-bogachev/ss-node-filestorage/badge.svg)](https://coveralls.io/github/vt-bogachev/ss-node-filestorage)
+
 FileStorage
 =========================
 
@@ -44,3 +47,7 @@ Promise.all([
   console.log({file1Content, file2Content})
 })
 ```
+
+Tools
+---------------------------
+[TravisCI](https://travis-ci.org/), [Coveralls](https://coveralls.io)
