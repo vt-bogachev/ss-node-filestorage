@@ -110,6 +110,13 @@ describe('FileStorage', () => {
         }).catch(done)
       })
 
+      it('Remove file', (done) => {
+        FileStorage.use('avatar').remove('aaa.txt').then((result) => {
+          assert.equal(result, true)
+          done()
+        }).catch(done)
+      })
+
     })
 
   })
