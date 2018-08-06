@@ -63,7 +63,10 @@ describe('FileStorage', () => {
         FileStorage.init('avatar', new FileStorage.LocalStorage({
           path: `${__dirname}/_storage/public`
         }), {
-          url: 'http://localhost:8000'
+          url: 'http://localhost:8000',
+          validators: {
+            size: {min: '10kb', max: '2mb'}
+          }
         })
         assert.isTrue(FileStorage.exists('avatar'))
         done()
