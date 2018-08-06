@@ -36,7 +36,7 @@ describe('FileStorage', () => {
       it('Check define storage without path options.', (done) => {
         try {
           FileStorage.init('avatar', new FileStorage.LocalStorage({
-            somekey: '../../',
+            somekey: '../../'
           }))
           done(new Error('Test failed.'))
         } catch (err) {
@@ -49,7 +49,7 @@ describe('FileStorage', () => {
       it('Check define storage with invalid path options.', (done) => {
         try {
           FileStorage.init('avatar', new FileStorage.LocalStorage({
-            path: '../../',
+            path: '../../'
           }))
           done(new Error('Test failed.'))
         } catch (err) {
@@ -61,9 +61,9 @@ describe('FileStorage', () => {
 
       it('Check define valid storage.', (done) => {
         FileStorage.init('avatar', new FileStorage.LocalStorage({
-          path: `${__dirname}/_storage/public`,
+          path: `${__dirname}/_storage/public`
         }), {
-          url: 'http://localhost:8000',
+          url: 'http://localhost:8000'
         })
         assert.isTrue(FileStorage.exists('avatar'))
         done()
