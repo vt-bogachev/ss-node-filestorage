@@ -1,7 +1,8 @@
 const
   exec = require('child_process').exec,
   fs = require('fs'),
-  assert = require('chai').assert
+  assert = require('chai').assert,
+  bytes = require('bytes')
 
 const
   FileStorage = require('../index')
@@ -63,7 +64,10 @@ describe('FileStorage', () => {
         FileStorage.init('avatar', new FileStorage.LocalStorage({
           path: `${__dirname}/_storage/public`
         }), {
-          url: 'http://localhost:8000'
+          url: 'http://localhost:8000',
+          validators: {
+            size: {min: bytes('10b'), max: bytes('15b')}
+          }
         })
         assert.isTrue(FileStorage.exists('avatar'))
         done()
@@ -79,11 +83,17 @@ describe('FileStorage', () => {
         done()
       })
 
-      it('Put file to storage', (done) => {
-        FileStorage.use('avatar').put('aaa.txt', 'content').then((result) => {
+      it('Put file to storage. Valid data.', (done) => {
+        FileStorage.use('avatar').put('aaa.txt', '01234567891').then((result) => {
           assert.isTrue(result)
           done()
-        }).catch(done)
+        }).catch(done => console.log(done))
+      })
+
+      it('Put file to storage. Check size limit.', (done) => {
+        FileStorage.use('avatar').put('aaa.txt', '0123456').then((result) => {
+          done('Invalid validator processing.')
+        }).catch(() => done())
       })
 
       it('Get non exists file from storage', (done) => {
