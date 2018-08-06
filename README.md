@@ -42,6 +42,7 @@ FileStorage.use('avatar').
   getUrl('filename.text').
   then((fileUrl)=>console.log(fileUrl))
   
+// Remove file  
 FileStorage.use('avatar').
   remove('filename.text').
   then((result)=>console.log(result))
