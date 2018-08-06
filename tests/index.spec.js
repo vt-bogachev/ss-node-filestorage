@@ -108,7 +108,7 @@ describe('FileStorage', () => {
 
       it('Get exists file from storage', (done) => {
         FileStorage.use('avatar').get('aaa.txt').then((content) => {
-          assert.equal('content', content)
+          assert.equal('01234567891', content)
           done()
         }).catch(done)
       })
