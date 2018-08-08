@@ -59,6 +59,28 @@ Promise.all([
 ]).then(([file1Content, file2Content])=>{
   console.log({file1Content, file2Content})
 })
+
+// ================================================
+// Validation (@beta)
+// Available 2 types of validation:
+//  size - validation by size of content
+//    size: {min: 10, max: 100}
+//    size: {min: 10}
+//    size: {max: 100}
+//  types - validation by tipe of file
+//    types: ['png']
+//    types: ['png','jpg']
+// ================================================
+FileStorage.init('image', new FileStorage.LocalStorage({
+  path: `${__dirname}/_storage/image`
+}), {
+  url: 'http://localhost:8000',
+  validators: {
+    size: {min: 10, max: 100},
+    types: ['png']
+  }
+})
+
 ```
 
 Tools
