@@ -2,12 +2,14 @@ const
   exec = require('child_process').exec,
   fs = require('fs'),
   assert = require('chai').assert,
-  bytes = require('bytes')
+  bytes = require('bytes'),
+  fileType = require('file-type')
 
 const
   StorageSizeValidationError = require('../lib/validators/size').StorageSizeValidationError,
   sizeValidator = require('../lib/validators/size'),
   StorageTypeValidationError = require('../lib/validators/types').StorageTypeValidationError,
+  typeValidator = require('../lib/validators/types'),
   StorageValidationErrors = require('./../lib/validators/validation.error')
 
 const
@@ -22,7 +24,7 @@ describe('FileStorage', () => {
 
   describe('Validator', () => {
 
-    describe('Validator', () => {
+    describe('Size Validator', () => {
 
       it('Test error of size validator', (done) => {
         const storageSizeValidationError = new StorageSizeValidationError('VALIDATOR.SIZE.MIN', {
@@ -50,18 +52,43 @@ describe('FileStorage', () => {
 
     })
 
-    it('Test type validator', (done) => {
-      const storageTypeValidationError = new StorageTypeValidationError('VALIDATOR.SIZE.MIN', {
-        size: 1000,
-        min: 10
+    describe('Type Validator', () => {
+
+      it('Test error of type validator', (done) => {
+        const storageTypeValidationError = new StorageTypeValidationError('VALIDATOR.TYPE', {
+          type: 'jpg',
+          types: ['jpg', 'png']
+        })
+        assert.instanceOf(storageTypeValidationError, StorageTypeValidationError)
+        assert.equal(storageTypeValidationError.name, 'StorageTypeValidationError')
+        assert.equal(storageTypeValidationError.message, 'VALIDATOR.TYPE')
+        assert.deepEqual(storageTypeValidationError.options, {
+          type: 'jpg',
+          types: ['jpg', 'png']
+        })
+        assert.equal(storageTypeValidationError.toString(), 'VALIDATOR.TYPE Content type: jpg Available types: jpg,png')
+        done()
       })
-      console.log(storageTypeValidationError)
-      // assert.instanceOf(storageSizeValidationError, StorageSizeValidationError)
-      // assert.equal(storageSizeValidationError.name, 'StorageSizeValidationError')
-      // assert.equal(storageSizeValidationError.message, 'VALIDATOR.SIZE.MIN')
-      // assert.deepEqual(storageSizeValidationError.options, {size: 1000, min: 10})
-      // assert.equal(storageSizeValidationError.toString(), 'VALIDATOR.SIZE.MIN Content size: 1000 Limit: undefined')
-      done()
+
+      it('Test type validator. Invalid data.', (done) => {
+        const content = fs.readFileSync(`${__dirname}/_testdata/image.png`)
+        const result = typeValidator(fileType(content), ['jpg'])
+        assert.typeOf(result, 'array')
+        assert.equal(result.length, 1)
+        const error = result[0]
+        assert.instanceOf(error, StorageTypeValidationError)
+        assert.equal(error.toString(), 'VALIDATOR.TYPE Content type: png Available types: jpg')
+        done()
+      })
+
+      it('Test type validator. Valid data.', (done) => {
+        const content = fs.readFileSync(`${__dirname}/_testdata/image.png`)
+        const result = typeValidator(fileType(content), ['png'])
+        assert.typeOf(result, 'array')
+        assert.equal(result.length, 0)
+        done()
+      })
+
     })
 
   })
