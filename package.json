@@ -1,6 +1,6 @@
 {
   "name": "ss-node-filestorage",
-  "version": "0.0.4",
+  "version": "0.1.0",
   "description": "Filestorage for Node.",
   "main": "index.js",
   "scripts": {
@@ -30,12 +30,16 @@
     "coveralls": "^3.0.1",
     "mocha": "^5.2.0",
     "mocha-lcov-reporter": "^1.3.0",
-    "nyc": "^12.0.1"
+    "nyc": "^12.0.1",
+    "bytes": "^3.0.0"
   },
   "nyc": {
     "exclude": [
       "**/*.spec.js",
       "build"
     ]
+  },
+  "dependencies": {
+    "file-type": "^8.1.0"
   }
 }

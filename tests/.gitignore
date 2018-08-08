@@ -1,2 +1,6 @@
 *
+!_storage
+!_testdata
+!public
 !index.spec.js
+!.gitignore
