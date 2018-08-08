@@ -6,6 +6,8 @@ const
 
 const
   StorageSizeValidationError = require('../lib/validators/size').StorageSizeValidationError,
+  sizeValidator = require('../lib/validators/size'),
+  StorageTypeValidationError = require('../lib/validators/types').StorageTypeValidationError,
   StorageValidationErrors = require('./../lib/validators/validation.error')
 
 const
@@ -20,16 +22,45 @@ describe('FileStorage', () => {
 
   describe('Validator', () => {
 
-    it('Test size validator', (done) => {
-      const storageSizeValidationError = new StorageSizeValidationError('VALIDATOR.SIZE.MIN', {
+    describe('Validator', () => {
+
+      it('Test error of size validator', (done) => {
+        const storageSizeValidationError = new StorageSizeValidationError('VALIDATOR.SIZE.MIN', {
+          size: 1000,
+          min: 10
+        })
+        assert.instanceOf(storageSizeValidationError, StorageSizeValidationError)
+        assert.equal(storageSizeValidationError.name, 'StorageSizeValidationError')
+        assert.equal(storageSizeValidationError.message, 'VALIDATOR.SIZE.MIN')
+        assert.deepEqual(storageSizeValidationError.options, {size: 1000, min: 10})
+        assert.equal(storageSizeValidationError.toString(), 'VALIDATOR.SIZE.MIN Content size: 1000 Limit: undefined')
+        done()
+      })
+
+      it('Test size validator', (done) => {
+        const content = Buffer.from('test')
+        const result = sizeValidator(content, {min: 10, max: 20})
+        assert.typeOf(result, 'array')
+        assert.equal(result.length, 1)
+        const error = result[0]
+        assert.instanceOf(error, StorageSizeValidationError)
+        assert.equal(error.toString(), 'VALIDATOR.SIZE.MIN Content size: 4 Limit: 10')
+        done()
+      })
+
+    })
+
+    it('Test type validator', (done) => {
+      const storageTypeValidationError = new StorageTypeValidationError('VALIDATOR.SIZE.MIN', {
         size: 1000,
         min: 10
       })
-      assert.instanceOf(storageSizeValidationError, StorageSizeValidationError)
-      assert.equal(storageSizeValidationError.name, 'StorageSizeValidationError')
-      assert.equal(storageSizeValidationError.message, 'VALIDATOR.SIZE.MIN')
-      assert.deepEqual(storageSizeValidationError.options, {size: 1000, min: 10})
-      assert.equal(storageSizeValidationError.toString(), 'VALIDATOR.SIZE.MIN Content size: 1000 Limit: undefined')
+      console.log(storageTypeValidationError)
+      // assert.instanceOf(storageSizeValidationError, StorageSizeValidationError)
+      // assert.equal(storageSizeValidationError.name, 'StorageSizeValidationError')
+      // assert.equal(storageSizeValidationError.message, 'VALIDATOR.SIZE.MIN')
+      // assert.deepEqual(storageSizeValidationError.options, {size: 1000, min: 10})
+      // assert.equal(storageSizeValidationError.toString(), 'VALIDATOR.SIZE.MIN Content size: 1000 Limit: undefined')
       done()
     })
 
