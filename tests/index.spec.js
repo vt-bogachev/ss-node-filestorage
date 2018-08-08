@@ -211,7 +211,7 @@ describe('FileStorage', () => {
         url: 'http://localhost:8000',
         validators: {
           size: {min: bytes('10b'), max: bytes('100Kb')},
-          types: ['jpg']
+          types: ['png']
         }
       })
       assert.isTrue(FileStorage.exists('avatar'))
