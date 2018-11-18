@@ -197,6 +197,13 @@ describe('FileStorage', () => {
       }).catch(done)
     })
 
+    it('Get path for a file', (done) => {
+      FileStorage.use('avatar').getPath('aaa.txt').then((path) => {
+        assert.equal(path, '/home/developer/proj/repositories/ss-node-filestorage/tests/_storage/public/aaa.txt')
+        done()
+      }).catch(done)
+    })
+
     it('Remove file', (done) => {
       FileStorage.use('avatar').remove('aaa.txt').then((result) => {
         assert.equal(result, true)
@@ -220,12 +227,10 @@ describe('FileStorage', () => {
 
     it('Save image', (done) => {
       const fileContent = fs.readFileSync(`${__dirname}/_testdata/image.png`)
-      FileStorage.use('image').put('image.jpg', fileContent).
-        then((result) => done()).
-        catch((err) => {
-          console.log(err)
-          done(err)
-        })
+      FileStorage.use('image').put('image.jpg', fileContent).then((result) => done()).catch((err) => {
+        console.log(err)
+        done(err)
+      })
     })
 
   })
