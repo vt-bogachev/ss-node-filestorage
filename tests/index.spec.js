@@ -3,6 +3,7 @@ const
   fs = require('fs'),
   assert = require('chai').assert,
   bytes = require('bytes'),
+  path = require('path'),
   fileType = require('file-type')
 
 const
@@ -164,13 +165,13 @@ describe('FileStorage', () => {
       FileStorage.use('avatar').put('aaa.txt', '01234567891').then((result) => {
         assert.isTrue(result)
         done()
-      }).catch(done => console.log(done))
+      }).catch(done)
     })
 
     it('Put file to storage. Check size limit.', (done) => {
-      FileStorage.use('avatar').put('aaa.txt', '0123456').then((result) => {
+      FileStorage.use('avatar').put('aaa.txt', '01234567').then((result) => {
         done('Invalid validator processing.')
-      }).catch(() => done())
+      }).catch((err) => done())
     })
 
     it('Get non exists file from storage', (done) => {
@@ -198,8 +199,8 @@ describe('FileStorage', () => {
     })
 
     it('Get path for a file', (done) => {
-      FileStorage.use('avatar').getPath('aaa.txt').then((path) => {
-        assert.equal(path, '/home/developer/proj/repositories/ss-node-filestorage/tests/_storage/public/aaa.txt')
+      FileStorage.use('avatar').getPath('aaa.txt').then((pathFile) => {
+        assert.equal(pathFile, path.join(__dirname, '_storage/public/aaa.txt'))
         done()
       }).catch(done)
     })
@@ -213,7 +214,7 @@ describe('FileStorage', () => {
 
     it('Check define valid image storage.', (done) => {
       FileStorage.init('image', new FileStorage.LocalStorage({
-        path: `${__dirname}/_storage/image`
+        path: `${__dirname} / _storage / image`
       }), {
         url: 'http://localhost:8000',
         validators: {
